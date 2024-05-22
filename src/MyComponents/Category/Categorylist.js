@@ -1,9 +1,7 @@
 import React from 'react'
 
 export const Categorylist = ({ categoryData }) => {
-  Object.keys(categoryData).map((categoryName) => (
-    console.log(categoryName)
-  ))
+  
     return (
         // Category List items
         <div className="categoryList w-1/4 h-full mt-6 mt-4 	">
