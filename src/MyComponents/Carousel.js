@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 export const Carousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
-        "https://via.placeholder.com/800x400?text=Slide+1",
-        "https://via.placeholder.com/800x400?text=Slide+2",
-        "https://via.placeholder.com/800x400?text=Slide+3"
+        "https://i.ytimg.com/vi/Uqqw715akWY/maxresdefault.jpg",
+        "https://api.dominos.co.in/prod-olo-api/images/Home_Paytm_20210519.jpg",
+        "https://c8.alamy.com/comp/2CCRW4G/buffet-with-mini-burgers-sliders-catering-banquet-table-with-appetizers-party-food-2CCRW4G.jpg"
     ];
 
     const nextSlide = () => {

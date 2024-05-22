@@ -1,52 +1,6 @@
 import React from "react";
 import { Cards } from "./Cards";
-
-const CategoryList = () => {
-  return (
-    // Category List items
-    <div className="categoryList w-1/4 h-full mt-6 mt-4 	">
-      <h1 className="text-xl h-16  flex justify-center items-center bg-gradient-to-r from-green-200 to-blue-300 text-white shadow-md rounded-lg transform hover:scale-105 hover:bg-yellow-100 hover:text-2xl transition-all duration-300">
-        Category
-      </h1>
-       
-      <ul className="space-y">
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Veg
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Non-Veg
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          curi
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Ld
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Chicken
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Veg
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Sweet
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Veg
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Maggi
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Veg
-        </li>
-        <li className="text-xl h-14 flex justify-center items-center text-lg hover:bg-yellow-200  hover:text-2xl">
-          Spicey
-        </li>
-      </ul>
-    </div>
-  );
-};
+import { Categorylist } from "./Categorylist";
 
 export const Categorymain = () => {
   /* JSON Data*/
@@ -56,12 +10,22 @@ export const Categorymain = () => {
         "cardId": 1,
         "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/e0839ff574213e6f35b3899ebf1fc597",
         "title": "Food 1",
-        "type": "Non Veg"
+        "type": "Veg"
       },
       {
         "cardId": 2,
         "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
         "title": "Food 2",
+        "type": "Veg"
+      }, {
+        "cardId": 3,
+        "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
+        "title": "Food 3",
+        "type": "Veg"
+      },{
+        "cardId": 4,
+        "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
+        "title": "Food 4",
         "type": "Veg"
       }
     ],
@@ -135,7 +99,7 @@ export const Categorymain = () => {
         "type": "Veg"
       }
     ],
-    "Veg": [
+    "Vegx": [
       {
         "cardId": 13,
         "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/e33e1d3ba7d6b2bb0d45e1001b731fcf",
@@ -157,9 +121,10 @@ export const Categorymain = () => {
     ]
   }
 
-  return (
+  
+  return ( 
     <div className="category border-2 mt-16 flex  ">
-      <CategoryList />
+     <Categorylist categoryData={categoryData} />
       <div className="border-6 w-3/4">
 
      
