@@ -10,20 +10,24 @@ export const Navbar = () => {
 
     return (
         <nav className="bg-white border-gray-200 border-2">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ">
+                <a  
                     href="https://flowbite.com/"
-                    className="flex items-center space-x-3 rtl:space-x-reverse"
+                    className="flex items-center space-x-3 rtl:space-x-reverse "
                 >
                     <img
-                        src="https://flowbite.com/docs/images/logo.svg"
-                        className="h-8"
-                        alt="Flowbite Logo"
+                        src="https://img.freepik.com/free-vector/detailed-chef-logo-template_23-2148987940.jpg?size=626&ext=jpg&ga=GA1.1.1249956578.1712072062&semt=ais_user_b"
+                        className="h-16 w-24"
+                        alt="Food Blog"
                     />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-gray-900">
-                        Flowbite
+                       Food Blog
                     </span>
                 </a>
+
+
+
+                
                 <div className="flex md:order-2">
                     <button
                         type="button"
@@ -77,6 +81,8 @@ export const Navbar = () => {
                         />
                     </div>
                 </div>
+
+
                 <div
                     className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? '' : 'hidden'}`}
                     id="navbar-search"
@@ -129,7 +135,7 @@ export const Navbar = () => {
                                 href="#"
                                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                             >
-                                Services
+                                Login
                             </a>
                         </li>
                     </ul>
