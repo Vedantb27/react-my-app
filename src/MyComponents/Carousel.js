@@ -33,7 +33,7 @@ export const Carousel = () => {
     return (
         <div className="relative w-full flex justify-center items-center mt-6 " data-carousel="slide">
             {/* Carousel wrapper */}
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96 w-full max-w-4xl mx-auto">
+            <div className="relative h- overflow-hidden rounded-lg md:h-96 w-full max-w-6xl mx-auto">
                 {slides.map((slide, index) => (
                     <div key={index} className={`absolute inset-0 duration-700 ease-in-out ${currentSlide === index ? 'block' : 'hidden'}`} data-carousel-item>
                         <img src={slide} className="block w-full h-full object-cover" alt={`Slide ${index + 1}`} />

@@ -24,7 +24,7 @@ export const Categorymain = () => {
   
   return ( 
     <div className="category border-2 mt-16 flex  ">
-     {/* <Categorylist categoryData={categoryData} /> */}
+     {/* <Categorylist categoryData={categoryData} />    */}
       <div className="border-6 w-full">
 
      
