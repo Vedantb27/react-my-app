@@ -4,7 +4,7 @@ export const Corouselnew = ({ categoryData }) => {
   return (
     <div className='h-72 mt-8 '>
       <div className='h-12 sm:ml-20 sm:mr-20 flex justify-between items-center'>
-        <p className='text-3xl font-bold ml-20'>Category</p>
+        <p className='text-3xl font-bold  md:ml-20 ml-10'>Category</p>
         <div className='w-20 flex justify-between'>
           <i className="fa-solid fa-arrow-left text-2xl"></i>
           <i className="fa-solid fa-arrow-right text-2xl"></i>
