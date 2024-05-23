@@ -1,30 +1,16 @@
 import React from "react";
 import { Cards } from "./Cards";
 import { Categorylist } from "./Categorylist";
-import { useState, useEffect } from "react";
 
-export const Categorymain = () => {
+
+export const Categorymain = ({categoryData}) => {
   /* JSON Data*/
- const [categoryData , setcategoryData] = useState({});
-
-
- useEffect(()=>{
-  const fetchData = async () =>{
-    try{
-      const response = await fetch("https://mocki.io/v1/9258796a-9e9f-4903-9855-1d5c3e78d37d");
-      const data = await response.json();
-      setcategoryData(data);
-    }catch (error){
-      console.log("error fetching the data",error)
-    }
-  }
-  fetchData()
- },[])
-
+ 
+  
   
   return ( 
-    <div className="category border-2 mt-16 flex  ">
-     {/* <Categorylist categoryData={categoryData} />    */}
+    <div className="category border-2 mt-4 flex  ">
+    {/* <Categorylist categoryData={categoryData} />     */}
       <div className="border-6 w-full">
 
      
@@ -42,7 +28,7 @@ export const Categorymain = () => {
             <div className="category-cardsilist  flex flex-wrap">
             {
               <div className="w-full category-cardsilist flex flex-wrap">
-          {categoryData[categoryName].map((card) => {
+          {categoryData[categoryName].items.map((card) => {
             return <Cards key={card.cardId} {...card} />;
           })}
         </div>

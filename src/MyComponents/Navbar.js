@@ -9,7 +9,7 @@ export const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white border-gray-200 border-2">
+        <nav className="bg-white border-gray-200 border-2 p-2">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ">
                 <a  
                     href="https://flowbite.com/"

@@ -212,3 +212,35 @@ let categoryData = {
     }
   ]
 }
+
+
+let categoryData2 = {
+  "Veg-Masala-Tadka": {
+    "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
+    "items": [
+      {
+        "cardId": 1,
+        "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
+        "title": "Pizza Hut",
+        "type": "Pizzas, Italian"
+      },
+      {
+        "cardId": 2,
+        "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/noc7ieivirqxtpujhsgl",
+        "title": "UBQ by Barbeque",
+        "type": "North Indian, Barbeque"
+      }
+    ]
+  },
+  "Non-Veg": {
+    "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/63178e3e64d503a479f2a2048a474552",
+    "items": [
+      {
+        "cardId": 3,
+        "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/63178e3e64d503a479f2a2048a474552",
+        "title": "KFC",
+        "type": "Fried Chicken, Fast Food"
+      }
+    ]
+  }
+}
