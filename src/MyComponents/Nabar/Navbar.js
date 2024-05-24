@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-export const Navbar = () => {
+export const Navbar = ({setShowLoginForm}) => {
+   
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    
     const dropdownRef = useRef(null);
 
     const handleMenuToggle = () => {
@@ -158,8 +160,8 @@ export const Navbar = () => {
                                 </div>
                                 {isDropdownOpen && (
                                     <div className="border-2 rounded-xl absolute md:top-20 mt-2 ml-28  w-32 bg-white shadow-lg">
-                                        <p className="text-black px-4 border py-2 hover:bg-gray-100 hover:text-green-400">User</p>
-                                        <p className="text-black px-4 py-2 hover:bg-gray-100 hover:text-green-400">Admin</p>
+                                        <p className="text-black px-4 border py-2 hover:bg-gray-100 hover:text-green-400" onClick={() => setShowLoginForm(true)} >User</p>
+                                        <p className="text-black px-4 py-2 hover:bg-gray-100 hover:text-green-400" onClick={() => setShowLoginForm(true)} >Admin</p>
                                     </div>
                                 )}
                             </div>
