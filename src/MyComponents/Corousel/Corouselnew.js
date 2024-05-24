@@ -1,6 +1,13 @@
 import React from 'react';
 
 export const Corouselnew = ({ categoryData }) => {
+  const handleSmoothScroll = (e, categoryName) => {
+    e.preventDefault();
+    const element = document.getElementById(categoryName);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div className='h-72 mt-8 '>
       <div className='h-12 sm:ml-20 sm:mr-20 flex justify-between items-center'>
@@ -12,7 +19,7 @@ export const Corouselnew = ({ categoryData }) => {
       </div>
       <div className='hide-scrollbar h-56 border-2 rounded-xl mt-2 sm:ml-20 sm:mr-20 flex justify-between items-center overflow-x-auto overflow-y-hidden'>
         {Object.keys(categoryData).map((categoryName) => (
-          <a  key={categoryName} className=' rounded-xl w-72 min-h-34  h-34 ml-16 flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl hover:'>
+          <a href={`#${categoryName}`} key={categoryName} className=' rounded-xl w-72 min-h-34  h-34 ml-16 flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl hover:' onClick={(e) => handleSmoothScroll(e, categoryName)}>
             <img
               src={categoryData[categoryName].imageId}
               alt={categoryName}
@@ -22,7 +29,7 @@ export const Corouselnew = ({ categoryData }) => {
           </a>
         ))}
         {Object.keys(categoryData).map((categoryName) => (
-          <a key={categoryName} className=' rounded-xl w-72 min-h-34  h-34 ml-16 flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl hover:'>
+          <a href={`#${categoryName}`} key={categoryName} className=' rounded-xl w-72 min-h-34  h-34 ml-16 flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl hover:' onClick={(e) => handleSmoothScroll(e, categoryName)}>
             <img
               src={categoryData[categoryName].imageId}
               alt={categoryName}
