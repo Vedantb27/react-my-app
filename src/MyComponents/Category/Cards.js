@@ -3,7 +3,7 @@ import React from "react";
 export const Cards = ({imageId,title,type}) => {
 
   return (
-    <div class="max-w-sm min-h-40 min-w-40 w-1/5  transform transition duration-500 hover:scale-105 hover:shadow-xl m-4">
+    <div class="max-w-sm min-h-40 min-w-40 w-1/5  transform transition duration-500 hover:scale-105 hover:shadow-xl m-4" id={title}>
     <a class="flex justify-center" href="#">
       <img
         className="rounded-xl  h-40 w-60 mt-4 object-cover"

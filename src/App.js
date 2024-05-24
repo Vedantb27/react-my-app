@@ -3,7 +3,7 @@ import './App.css';
 import { Navbar } from './MyComponents/Navbar';
 import { Carousel } from './MyComponents/Corousel/Carousel';
 import { Categorymain } from './MyComponents/Category/Categorymain';
-import { Corouselnew } from './MyComponents/Category/Corouselnew';
+import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
 
 function App() {

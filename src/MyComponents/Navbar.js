@@ -1,19 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-// rafc --> to import
 export const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleDropdownToggle = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isDropdownOpen]);
+
     return (
         <nav className="bg-white border-gray-200 border-2 p-2">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto ">
-                <a  
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+                <a
                     href="https://flowbite.com/"
-                    className="flex items-center space-x-3 rtl:space-x-reverse "
+                    className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
                     <img
                         src="https://img.freepik.com/free-vector/detailed-chef-logo-template_23-2148987940.jpg?size=626&ext=jpg&ga=GA1.1.1249956578.1712072062&semt=ais_user_b"
@@ -21,13 +44,10 @@ export const Navbar = () => {
                         alt="Food Blog"
                     />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-gray-900">
-                       Food Blog
+                        Food Blog
                     </span>
                 </a>
 
-
-
-                
                 <div className="flex md:order-2">
                     <button
                         type="button"
@@ -46,9 +66,9 @@ export const Navbar = () => {
                         >
                             <path
                                 stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 d="M3 5h14M3 10h14M3 15h14"
                             />
                         </svg>
@@ -65,9 +85,9 @@ export const Navbar = () => {
                             >
                                 <path
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                                 />
                             </svg>
@@ -81,7 +101,6 @@ export const Navbar = () => {
                         />
                     </div>
                 </div>
-
 
                 <div
                     className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMenuOpen ? '' : 'hidden'}`}
@@ -98,9 +117,9 @@ export const Navbar = () => {
                             >
                                 <path
                                     stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                                 />
                             </svg>
@@ -130,13 +149,20 @@ export const Navbar = () => {
                                 About
                             </a>
                         </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                            >
-                                Login
-                            </a>
+                        <li ref={dropdownRef}>
+                            <div onClick={handleDropdownToggle} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 cursor-pointer">
+                                <div className="flex justify-center ml-20 md:ml-0">
+                                    <p className="">Login / Sign up</p>
+                                    <i className="fa-regular fa-circle-user text-[32px] ml-4 font-semibold"></i>
+                                    <i className="fa-solid fa-angle-down ml-4 mt-2"></i>
+                                </div>
+                                {isDropdownOpen && (
+                                    <div className="border-2 rounded-xl absolute md:top-20 mt-2 ml-28  w-32 bg-white shadow-lg">
+                                        <p className="text-black px-4 border py-2 hover:bg-gray-100 hover:text-green-400">User</p>
+                                        <p className="text-black px-4 py-2 hover:bg-gray-100 hover:text-green-400">Admin</p>
+                                    </div>
+                                )}
+                            </div>
                         </li>
                     </ul>
                 </div>
