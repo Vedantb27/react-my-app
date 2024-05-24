@@ -1,3 +1,4 @@
+// older Obj
 let categoryData = {
   "Veg-Masala-Tadka": [
     {
@@ -213,7 +214,7 @@ let categoryData = {
   ]
 }
 
-
+//new Obj
 let categoryData2 = {
   "Veg-Masala-Tadka": {
     "imageId": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/490629b70f89da8a5b93fc199ece335e",
