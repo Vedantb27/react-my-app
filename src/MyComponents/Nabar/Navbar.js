@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+
 export const Navbar = ({setShowLoginForm}) => {
    
     const [isMenuOpen, setIsMenuOpen] = useState(false);

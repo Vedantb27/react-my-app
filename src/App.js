@@ -1,6 +1,5 @@
 import './App.css';
 import { Navbar } from './MyComponents/Nabar/Navbar';
-import { Carousel } from './MyComponents/Corousel/Carousel';
 import { Categorymain } from './MyComponents/Category/Categorymain';
 import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
@@ -23,14 +22,10 @@ function App() {
     fetchData();
   }, []);
 
-  const toggleLoginForm = () => {
-    setShowLoginForm(prevState => !prevState);
-  }
-
   return (
     <div className="App">
-      <Navbar  setShowLoginForm={setShowLoginForm} />
-      {showLoginForm && <Loginform onClose={()=>setShowLoginForm(false)}  />}
+      <Navbar setShowLoginForm={setShowLoginForm} />
+      {showLoginForm && <Loginform onClose={() => setShowLoginForm(false)} />}
       <Corouselnew categoryData={categoryData} />
       <Categorymain categoryData={categoryData} />
     </div>

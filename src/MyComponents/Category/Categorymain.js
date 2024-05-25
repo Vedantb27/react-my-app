@@ -1,12 +1,12 @@
 import React from "react";
 import { Cards } from "./Cards";
-import { Categorylist } from "./Categorylist";
+
 
 export const Categorymain = ({ categoryData }) => {
   /* JSON Data*/
 
   return (
-    <div className="category border-2 mt-4 flex  ">
+    <div className="category  mt-4 flex  ">
       {/* <Categorylist categoryData={categoryData} />     */}
       <div className="border-6 w-full">
         {Object.keys(categoryData).map((categoryName) => {
