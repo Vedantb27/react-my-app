@@ -1,24 +1,27 @@
 import React from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export const Cards = ({imageId,title,type}) => {
-
+export const Cards = (props) => {
+        const navigate = useNavigate();
   return (
-    <div class="max-w-sm min-h-40 min-w-40 w-1/5  transform transition duration-500 hover:scale-105 hover:shadow-xl m-4" id={title}>
-    <a class="flex justify-center" href="#">
+    
+    <div onClick={()=> {navigate("/Cardscontent", {state:{...props}})}} class="  max-w-sm min-h-40 min-w-40 w-1/5  transform transition duration-500 hover:scale-105 hover:shadow-xl m-4" id={props.title}>
+    <div class="flex justify-center " >
       <img
         className="rounded-xl  h-40 w-60 mt-4 object-cover"
-        src={imageId}
-        alt={title}
+        src={props.imageId}
+        alt={props.title}
       />
-    </a>
+    </div>
     <div class="p-4">
-      <a href="#">
+       <div>
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-blue-600 transition duration-300">
-          {title}
+          {props.title}
         </h5>
-      </a>
+      </div> 
       <p class="mb-3 font-normal text-gray-700">
-        {type}
+        {props.type}
       </p>
     </div>
   </div>

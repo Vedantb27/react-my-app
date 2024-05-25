@@ -8,7 +8,7 @@ const router = createBrowserRouter([
     element: <App />
   },
   {
-    path: "/Cardscontent",
+    path:  "/Cardscontent",
     element: <Cardscontent />
   }
 ]);
