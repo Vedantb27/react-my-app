@@ -31,7 +31,7 @@ export const Cardscontent = () => {
                   High Protein English Breakfast
                 </h2>
                 <div className="text-gray-700 m-2  text-start min-h-60  max-h-96 flex md:flex-row flex-col-reverse md:items-center  ">
-                  <p className="md:w-1/2 border-2 border-blue-400 rounded-2xl hide-scrollbar mt-4 p-4 mr-2 overflow-y-auto min-h-40 max-h-80">
+                  <p className="md:w-1/2 border-2 border-blue-400 rounded-2xl hide-scrollbar mt-4 p-4 mr-2 overflow-y-auto min-h-40 md:min-h-72 max-h-80">
                     {location.state.mealDetail}
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco
                     laboris nisi ut aliquip ex ea commodo consequat. Duis aute
@@ -68,6 +68,7 @@ export const Cardscontent = () => {
                     ut aliquip ex ea commodo consequat. Duis aute irure dolor in
                     reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur. Excepteur sin
+                    
                   </p>
                   <img
                     className="rounded-xl  h-40 w-60  md:h-72 md:w-2/5 ml-auto mr-auto mt-4 object-cover  "
