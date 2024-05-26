@@ -245,3 +245,7 @@ let categoryData2 = {
     ]
   }
 }
+
+let lasmainobj= "https://mocki.io/v1/496c738c-f995-4bc4-aace-abf2370fadd1"
+
+let newarrobj ="https://mocki.io/v1/a8e21ecb-f9ad-4d37-97ae-9f124e564962"
