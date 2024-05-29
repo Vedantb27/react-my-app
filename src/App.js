@@ -5,6 +5,7 @@ import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
 import { Loginform } from './MyComponents/Nabar/Loginform';
 
+
 function App() {
   const [categoryData, setCategoryData] = useState({});
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -17,7 +18,7 @@ function App() {
         setCategoryData(data);
       } catch (error) {
         console.log("error fetching the data", error);
-      }
+      } 
     }
     fetchData();
   }, []);
@@ -27,7 +28,9 @@ function App() {
       <Navbar setShowLoginForm={setShowLoginForm} />
       {showLoginForm && <Loginform onClose={() => setShowLoginForm(false)} />}
       <Corouselnew categoryData={categoryData} />
-      <Categorymain categoryData={categoryData} />
+      <Categorymain categoryData={categoryData} /> 
+      
+      
     </div>
   );
 }

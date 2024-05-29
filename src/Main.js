@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import { Cardscontent } from './MyComponents/Category/Cardscontent';
+import { Admineditcategory } from './MyComponents/Admin/Admineditcategory';
+
 
 const router = createBrowserRouter([
   {
@@ -10,7 +12,12 @@ const router = createBrowserRouter([
   {
     path:  "/Cardscontent",
     element: <Cardscontent />
+  },
+  {
+    path:  "/Admineditcategory",
+    element: <Admineditcategory />
   }
+
 ]);
 
 function Main() {
