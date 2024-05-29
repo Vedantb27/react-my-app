@@ -4,7 +4,6 @@ import { Categorymain } from './MyComponents/Category/Categorymain';
 import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
 import { Loginform } from './MyComponents/Nabar/Loginform';
-import { Admineditcategory } from './MyComponents/Admin/Admineditcategory';
 
 function App() {
   const [categoryData, setCategoryData] = useState({});

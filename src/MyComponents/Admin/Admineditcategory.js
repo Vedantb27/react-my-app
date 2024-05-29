@@ -82,11 +82,9 @@ export const Admineditcategory = () =>{
     };
   
     const handleReset = () => {
-      console.log("Original cards before reset:", originalCards); // this line is for testing
-      console.log("Cards before reset:", cards); // this line is for testing
+     
       setCards(_.cloneDeep(originalCards)); // Reset cards to the deep-copied original state
-      console.log("Original cards after reset:", originalCards); // this line is for testing
-      console.log("Cards after reset:", cards); // this line is for testing
+     
     };
   
     return (
