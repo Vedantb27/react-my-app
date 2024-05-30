@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 export const Admineditcategory = () =>{
     const [cards, setCards] = useState([]);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
     const [originalCards, setOriginalCards] = useState([]);
+    const navigate = useNavigate();
+    
   
     useEffect(() => {
       const fetchData = async () => {
@@ -19,6 +22,8 @@ export const Admineditcategory = () =>{
           const transformedData = Object.keys(data).map((key) => ({
             name: key,
             imageId: data[key].imageId,
+            items:data[key].items,
+           
           }));
           setCards(transformedData);
           setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
@@ -29,6 +34,9 @@ export const Admineditcategory = () =>{
       };
       fetchData();
     }, []);
+
+    
+  
   
     const handleImageChange = (e, index) => {
       const file = e.target.files[0];
@@ -54,7 +62,7 @@ export const Admineditcategory = () =>{
       }
     };
   
-    const handleSubmit = () => {
+    const handleSaveChange = () => {
       // Send the updated cards to the server
       axios
         .post("https://jsonplaceholder.typicode.com/posts", { cards })
@@ -77,7 +85,7 @@ export const Admineditcategory = () =>{
     const handleAddCard = () => {
       setCards([
         ...cards,
-        { name: `New Category ${cards.length + 1}`, imageId: "" },
+        { name: `New Category ${cards.length + 1}`, imageId: "",items:[] },
       ]);
     };
   
@@ -85,6 +93,10 @@ export const Admineditcategory = () =>{
      
       setCards(_.cloneDeep(originalCards)); // Reset cards to the deep-copied original state
      
+    };
+
+    const handleEditCard = (items) => {
+      navigate("/Admincardsedit", { state: { items } });
     };
   
     return (
@@ -101,7 +113,7 @@ export const Admineditcategory = () =>{
               </button>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                onClick={handleSubmit}
+                onClick={handleSaveChange}
               >
                 Save Change
               </button>
@@ -113,16 +125,19 @@ export const Admineditcategory = () =>{
               </button>
             </div>
           </div>
-          <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex flex-wrap items-center">
+          <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex md:flex-wrap items-center justify-center md:justify-start ">
             {cards.map((card, index) => (
               <div
                 key={index}
                 className="flex flex-col border-2 border-gray-200 p-4 mr-8 mt-4 rounded-lg shadow-lg bg-white w-72"
               >
                 <div className="flex justify-between mb-2">
-                  <button className="bg-yellow-400 text-white px-2 py-1 rounded-lg hover:bg-yellow-500 transition duration-300">
-                    Edit Card
-                  </button>
+                <button
+                  className="bg-yellow-400 text-white px-2 py-1 rounded-lg hover:bg-yellow-500 transition duration-300"
+                  onClick={() => handleEditCard(card.items)}
+                >
+                  Edit Card
+                </button>
                   <button
                     className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition duration-300"
                     onClick={() => handleDelete(index)}

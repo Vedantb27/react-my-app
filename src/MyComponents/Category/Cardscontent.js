@@ -15,9 +15,11 @@ export const Cardscontent = () => {
       <div className="flex flex-col min-h-screen">
         <header className="bg-gray-800 text-white flex justify-between items-center px-4 py-2">
           <h1 className="text-xl font-bold">My Food App</h1>
+          <Link to="/">
           <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">
-            <Link to="/">Back to menu</Link>
+          Back to menu
           </button>
+          </Link>
         </header>
         <main className="flex-grow overflow-y-auto px-4 py-4">
           <div className="flex flex-col md:items-center md:space-x-4">

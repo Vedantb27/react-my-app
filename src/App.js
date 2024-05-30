@@ -4,6 +4,7 @@ import { Categorymain } from './MyComponents/Category/Categorymain';
 import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
 import { Loginform } from './MyComponents/Nabar/Loginform';
+import { Admincardsedit } from './MyComponents/Admin/Admincardsedit';
 
 function App() {
   const [categoryData, setCategoryData] = useState({});
@@ -24,10 +25,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar setShowLoginForm={setShowLoginForm} />
+     <Navbar setShowLoginForm={setShowLoginForm} />
       {showLoginForm && <Loginform onClose={() => setShowLoginForm(false)} />}
       <Corouselnew categoryData={categoryData} />
-      <Categorymain categoryData={categoryData} /> 
+      <Categorymain categoryData={categoryData} />  
+      
       
       
     </div>
