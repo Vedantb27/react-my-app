@@ -36,3 +36,19 @@ code {
   scrollbar-width: none;  /* Firefox */
 }
 
+.gradient-border {
+  position: relative;
+  padding: 1px; /* Create space for the gradient border */
+  border-radius: 0.75rem; /* Match the Tailwind rounded-lg class */
+  background: linear-gradient(to right, #8a2be2, #ff69b4, #ff4500); /* Gradient colors */
+}
+
+
+.gradient-border .content {
+  position: relative;
+  border-radius: inherit;
+  background: white;
+  padding: 1rem; /* Adjust the padding as needed */
+}
+
+

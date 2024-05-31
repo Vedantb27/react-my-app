@@ -7,7 +7,7 @@ export const Cards = (props) => {
   return (
     
     <div onClick={()=> {navigate("/Cardscontent", {state:{...props}})}} class="  max-w-sm min-h-40 min-w-40 w-1/5  transform transition duration-500 hover:scale-105 hover:shadow-xl m-4 hover:" id={props.title}>
-    <div class="flex justify-center " >
+    <div class="flex justify-center  " >
       <img
         className="rounded-xl  h-40 w-60 mt-4 object-cover"
         src={props.imageId}

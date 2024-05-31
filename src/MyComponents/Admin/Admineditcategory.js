@@ -95,45 +95,48 @@ export const Admineditcategory = () => {
   
   return (
     <div className="category mt-8">
-      <div className="h-72">
-        <div className="h-12 sm:mx-20 flex md:justify-between justify-center flex-wrap items-center">
-          <p className="text-3xl font-bold md:ml-20 ml-10">Category</p>
-          <div className="flex space-x-2">
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300"
-              onClick={handleAddCard}
-            >
-              Add Card
-            </button>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-              onClick={handleSaveChange}
-            >
-              Save Change
-            </button>
-            <button
-              className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
+    <div className="h-72">
+      <div className="h-12 sm:mx-20 flex md:justify-between justify-center flex-wrap items-center">
+        <p className="text-3xl font-bold md:ml-20 ml-10 text-gray-700">
+          Category Edit
+        </p>
+        <div className="flex space-x-2">
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition duration-300 transform hover:scale-105"
+            onClick={handleAddCard}
+          >
+            Add Card
+          </button>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+            onClick={handleSaveChange}
+          >
+            Save Change
+          </button>
+          <button
+            className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-600 transition duration-300 transform hover:scale-105"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
         </div>
-        <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex md:flex-wrap items-center justify-center md:justify-start ">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col border-2 border-gray-200 p-4 mr-8 mt-4 rounded-lg shadow-lg bg-white w-72"
-            >
+      </div>
+      <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex flex-wrap items-center justify-center md:justify-start gap-4">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className="gradient-border transform transition duration-500 hover:scale-105 hover:shadow-xl"
+          >
+            <div className="content">
               <div className="flex justify-between mb-2">
                 <button
-                  className="bg-yellow-400 text-white px-2 py-1 rounded-lg hover:bg-yellow-500 transition duration-300"
+                  className="bg-yellow-400 text-white px-2 py-1 rounded-lg shadow-md hover:bg-yellow-500 transition duration-300 text-xs sm:text-sm"
                   onClick={() => handleEditCard(card.items, index)}
                 >
                   Edit Card
                 </button>
                 <button
-                  className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition duration-300"
+                  className="bg-red-500 text-white px-2 py-1 rounded-lg shadow-md hover:bg-red-600 transition duration-300 text-xs sm:text-sm"
                   onClick={() => handleDelete(index)}
                 >
                   Delete
@@ -146,31 +149,34 @@ export const Admineditcategory = () => {
                 <img
                   src={card.imageId}
                   alt={card.name}
-                  className="rounded-xl w-20 h-20 object-cover mt-2 max-w-full"
+                  className="rounded-xl w-16 h-16 sm:w-20 sm:h-20 object-cover mt-2 max-w-full"
                 />
-                <p className="text-sm font-medium mt-2">{card.name}</p>
+                <p className="text-xs sm:text-sm font-medium mt-2 text-gray-700">
+                  {card.name}
+                </p>
               </a>
-
-              <form className="mt-4">
+              <form className="mt-2 sm:mt-4">
                 <div className="flex flex-col space-y-2">
                   <div className="flex flex-col">
-                    <label className="text-sm font-medium">Upload IMG</label>
+                    <label className="text-xs sm:text-sm font-medium text-gray-600">
+                      Upload IMG
+                    </label>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => {
                         handleImageChange(e, index);
                       }}
-                      className="mt-1 p-1 border rounded-lg"
+                      className="mt-1 p-1 border border-gray-300 rounded-md text-xs sm:text-sm text-gray-600 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-2 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
                     />
                   </div>
                   <div className="flex flex-col mt-2">
-                    <label className="text-sm font-medium">
-                      Change Category 
+                    <label className="text-xs sm:text-sm font-medium text-gray-600">
+                      Change Category
                     </label>
                     <input
                       type="text"
-                      className="mt-1 p-1 border rounded-lg"
+                      className="mt-1 p-1 border rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                       value={card.name}
                       onChange={(e) => {
                         const updatedCards = [...cards];
@@ -179,13 +185,15 @@ export const Admineditcategory = () => {
                       }}
                     />
                   </div>
-                 
                 </div>
               </form>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
+  </div>
+  
+
   );
 };
