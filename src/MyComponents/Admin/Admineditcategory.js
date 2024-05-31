@@ -1,200 +1,191 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
+import Admincontext from "./Admincontext";
 
-export const Admineditcategory = () =>{
-    const [cards, setCards] = useState([]);
-    const [image, setImage] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
-    const [originalCards, setOriginalCards] = useState([]);
-    const navigate = useNavigate();
-    
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            "https://mocki.io/v1/d072f4ff-f78a-4bb1-ba68-29792825b177"
-          );
-          const data = await response.json();
-          const transformedData = Object.keys(data).map((key) => ({
-            name: key,
-            imageId: data[key].imageId,
-            items:data[key].items,
-           
-          }));
-          setCards(transformedData);
-          setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
-          console.log("Fetched and transformed data:", transformedData); // This line is for testing
-        } catch (error) {
-          console.log("error fetching the data", error);
-        }
-      };
-      fetchData();
-    }, []);
+export const Admineditcategory = () => {
+  const { cards, setCards, originalCards, setOriginalCards } =
+    useContext(Admincontext);
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
 
-    
-  
-  
-    const handleImageChange = (e, index) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const imageUrl = reader.result;
-  
-          // Create a copy of the cards array
-          const updatedCards = [...cards];
-  
-          // Update the imageId of the card at the given index
-          updatedCards[index].imageId = imageUrl;
-  
-          // Set the updated cards array to state
-          setCards(updatedCards);
-  
-          // Update the local image state if needed
-          setImageUrl(imageUrl);
-          setImage(file);
-        };
-        reader.readAsDataURL(file);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://mocki.io/v1/d072f4ff-f78a-4bb1-ba68-29792825b177"
+        );
+        const data = await response.json();
+        const transformedData = Object.keys(data).map((key) => ({
+          name: key,
+          imageId: data[key].imageId,
+          items: data[key].items,
+        }));
+        setCards(transformedData);
+        setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
+        console.log("Fetched and transformed data:", transformedData); // This line is for testing
+      } catch (error) {
+        console.log("error fetching the data", error);
       }
     };
-  
-    const handleSaveChange = () => {
-      // Send the updated cards to the server
-      axios
-        .post("https://jsonplaceholder.typicode.com/posts", { cards })
-        .then((response) => {
-          console.log("Response from JsonPlaceholder:", response.data);
-  
-          // Update the originalCards with a deep clone of the updated cards
-          setOriginalCards(_.cloneDeep(cards));
-        })
-        .catch((error) => {
-          console.log("Error sending data:", error);
-        });
-    };
-  
-    const handleDelete = (index) => {
-      const updatedCards = cards.filter((_, i) => i !== index);
-      setCards(updatedCards);
-    };
-  
-    const handleAddCard = () => {
-      setCards([
-        ...cards,
-        { name: `New Category ${cards.length + 1}`, imageId: "",items:[] },
-      ]);
-    };
-  
-    const handleReset = () => {
-     
-      setCards(_.cloneDeep(originalCards)); // Reset cards to the deep-copied original state
-     
-    };
+    fetchData();
+  }, []);
 
-    const handleEditCard = (items) => {
-      navigate("/Admincardsedit", { state: { items } });
-    };
+  const handleImageChange = (e, index) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageUrl = reader.result;
+
+        // Create a copy of the cards array
+        const updatedCards = [...cards];
+
+        // Update the imageId of the card at the given index
+        updatedCards[index].imageId = imageUrl;
+
+        // Set the updated cards array to state
+        setCards(updatedCards);
+
+        // Update the local image state if needed
+        setImageUrl(imageUrl);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveChange = () => {
+    // Send the updated cards to the server
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", { cards })
+      .then((response) => {
+        console.log("Response from JsonPlaceholder:", response.data);
+
+        // Update the originalCards with a deep clone of the updated cards
+        setOriginalCards(_.cloneDeep(cards));
+      })
+      .catch((error) => {
+        console.log("Error sending data:", error);
+      });
+  };
+
+  const handleDelete = (index) => {
+    const updatedCards = cards.filter((_, i) => i !== index);
+    setCards(updatedCards);
+  };
+
+  const handleAddCard = () => {
+    setCards([
+      ...cards,
+      { name: `New Category ${cards.length + 1}`, imageId: "", items: [] },
+    ]);
+  };
+
+  const handleReset = () => {
+    setCards(_.cloneDeep(originalCards)); // Reset cards to the deep-copied original state
+  };
+
+  const handleEditCard = (items, index) => {
+    navigate("/Admincardsedit", { state: { items, index } });
+  };
   
-    return (
-      <div className="category mt-8">
-        <div className="h-72">
-          <div className="h-12 sm:mx-20 flex md:justify-between justify-center flex-wrap items-center">
-            <p className="text-3xl font-bold md:ml-20 ml-10">Category</p>
-            <div className="flex space-x-2">
-              <button
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300"
-                onClick={handleAddCard}
-              >
-                Add Card
-              </button>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                onClick={handleSaveChange}
-              >
-                Save Change
-              </button>
-              <button
-                className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
-                onClick={handleReset}
-              >
-                Reset
-              </button>
-            </div>
+  return (
+    <div className="category mt-8">
+      <div className="h-72">
+        <div className="h-12 sm:mx-20 flex md:justify-between justify-center flex-wrap items-center">
+          <p className="text-3xl font-bold md:ml-20 ml-10">Category</p>
+          <div className="flex space-x-2">
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300"
+              onClick={handleAddCard}
+            >
+              Add Card
+            </button>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+              onClick={handleSaveChange}
+            >
+              Save Change
+            </button>
+            <button
+              className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
+              onClick={handleReset}
+            >
+              Reset
+            </button>
           </div>
-          <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex md:flex-wrap items-center justify-center md:justify-start ">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                className="flex flex-col border-2 border-gray-200 p-4 mr-8 mt-4 rounded-lg shadow-lg bg-white w-72"
-              >
-                <div className="flex justify-between mb-2">
+        </div>
+        <div className="hide-scrollbar border-2 rounded-xl mt-4 sm:mx-20 p-4 bg-gray-50 shadow-lg overflow-x-auto md:overflow-x-hidden md:overflow-y-hidden flex md:flex-wrap items-center justify-center md:justify-start ">
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              className="flex flex-col border-2 border-gray-200 p-4 mr-8 mt-4 rounded-lg shadow-lg bg-white w-72"
+            >
+              <div className="flex justify-between mb-2">
                 <button
                   className="bg-yellow-400 text-white px-2 py-1 rounded-lg hover:bg-yellow-500 transition duration-300"
-                  onClick={() => handleEditCard(card.items)}
+                  onClick={() => handleEditCard(card.items, index)}
                 >
                   Edit Card
                 </button>
-                  <button
-                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition duration-300"
-                    onClick={() => handleDelete(index)}
-                  >
-                    Delete
-                  </button>
-                </div>
-                <a
-                  href={`#${card.name}`}
-                  className="flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl"
+                <button
+                  className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 transition duration-300"
+                  onClick={() => handleDelete(index)}
                 >
-                  <img
-                    src={card.imageId}
-                    alt={card.name}
-                    className="rounded-xl w-20 h-20 object-cover mt-2 max-w-full"
-                  />
-                  <p className="text-sm font-medium mt-2">{card.name}</p>
-                </a>
-  
-                <form className="mt-4">
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex flex-col">
-                      <label className="text-sm font-medium">Upload IMG</label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          handleImageChange(e, index);
-                        }}
-                        className="mt-1 p-1 border rounded-lg"
-                      />
-                    </div>
-                    <div className="flex flex-col mt-2">
-                      <label className="text-sm font-medium">
-                        Change Category Name
-                      </label>
-                      <input
-                        type="text"
-                        className="mt-1 p-1 border rounded-lg"
-                        value={card.name}
-                        onChange={(e) => {
-                          const updatedCards = [...cards];
-                          updatedCards[index].name = e.target.value;
-                          setCards(updatedCards);
-                        }}
-                      />
-                    </div>
-                    <button className="mt-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition duration-300">
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                  Delete
+                </button>
               </div>
-            ))}
-          </div>
+              <a
+                href={`#${card.name}`}
+                className="flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl"
+              >
+                <img
+                  src={card.imageId}
+                  alt={card.name}
+                  className="rounded-xl w-20 h-20 object-cover mt-2 max-w-full"
+                />
+                <p className="text-sm font-medium mt-2">{card.name}</p>
+              </a>
+
+              <form className="mt-4">
+                <div className="flex flex-col space-y-2">
+                  <div className="flex flex-col">
+                    <label className="text-sm font-medium">Upload IMG</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        handleImageChange(e, index);
+                      }}
+                      className="mt-1 p-1 border rounded-lg"
+                    />
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <label className="text-sm font-medium">
+                      Change Category 
+                    </label>
+                    <input
+                      type="text"
+                      className="mt-1 p-1 border rounded-lg"
+                      value={card.name}
+                      onChange={(e) => {
+                        const updatedCards = [...cards];
+                        updatedCards[index].name = e.target.value;
+                        setCards(updatedCards);
+                      }}
+                    />
+                  </div>
+                 
+                </div>
+              </form>
+            </div>
+          ))}
         </div>
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
