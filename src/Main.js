@@ -5,12 +5,27 @@ import { Cardscontent } from './MyComponents/Category/Cardscontent';
 import { Admineditcategory } from './MyComponents/Admin/Admineditcategory';
 import { Admincardsedit } from './MyComponents/Admin/Admincardsedit';
 import { AdminProvider } from './MyComponents/Admin/Admincontext';
+import { ProtectedRoute } from './MyComponents/ProtectedRoute';
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/Cardscontent", element: <Cardscontent /> },
-  { path: "/Admineditcategory", element: <Admineditcategory /> },
-  { path: "/Admincardsedit", element: <Admincardsedit /> }
+  {
+    path: "/Admineditcategory",
+    element: (
+      <ProtectedRoute>
+        <Admineditcategory />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/Admincardsedit",
+    element: (
+      <ProtectedRoute>
+        <Admincardsedit />
+      </ProtectedRoute>
+    )
+  }
 ]);
 
 function Main() {
