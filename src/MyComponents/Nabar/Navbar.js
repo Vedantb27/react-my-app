@@ -37,7 +37,7 @@ export const Navbar = ({setShowLoginForm}) => {
     return (
         <nav className="bg-white border-gray-200 border-2 p-2">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
-                <a
+                <a href='#'
                     
                     className="flex items-center space-x-3 rtl:space-x-reverse"
                 >
@@ -155,7 +155,7 @@ export const Navbar = ({setShowLoginForm}) => {
                         <li ref={dropdownRef}>
                             <div onClick={handleDropdownToggle} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 cursor-pointer">
                                 <div className="flex justify-center ml-20 md:ml-0">
-                                    <p className="">Login / Sign up</p>
+                                    <p className="">Login </p>
                                     <i className="fa-regular fa-circle-user text-[32px] ml-4 font-semibold"></i>
                                     <i className="fa-solid fa-angle-down ml-4 mt-2"></i>
                                 </div>

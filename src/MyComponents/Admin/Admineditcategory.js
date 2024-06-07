@@ -16,7 +16,7 @@ export const Admineditcategory = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://mocki.io/v1/d072f4ff-f78a-4bb1-ba68-29792825b177"
+          "https://mocki.io/v1/7a9e4b69-0069-4e9b-8bc6-37b20dbd0e88"
         );
         const data = await response.json();
         const transformedData = Object.keys(data).map((key) => ({
@@ -130,7 +130,7 @@ export const Admineditcategory = () => {
             <div className="content">
               <div className="flex justify-between mb-2">
                 <button
-                  className="bg-yellow-400 text-white px-2 py-1 rounded-lg shadow-md hover:bg-yellow-500 transition duration-300 text-xs sm:text-sm"
+                  className="bg-yellow-400 text-black px-2 py-1 rounded-lg shadow-md hover:bg-yellow-500 transition duration-300 text-xs sm:text-sm"
                   onClick={() => handleEditCard(card.items, index)}
                 >
                   Edit Card

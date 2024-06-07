@@ -4,7 +4,7 @@ import { Categorymain } from './MyComponents/Category/Categorymain';
 import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
 import { useState, useEffect } from "react";
 import { Loginform } from './MyComponents/Nabar/Loginform';
-import { Admincardsedit } from './MyComponents/Admin/Admincardsedit';
+
 
 function App() {
   const [categoryData, setCategoryData] = useState({});
@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://mocki.io/v1/d072f4ff-f78a-4bb1-ba68-29792825b177");
+        const response = await fetch("https://mocki.io/v1/7a9e4b69-0069-4e9b-8bc6-37b20dbd0e88");
         const data = await response.json();
         setCategoryData(data);
       } catch (error) {
@@ -28,10 +28,7 @@ function App() {
      <Navbar setShowLoginForm={setShowLoginForm} />
       {showLoginForm && <Loginform onClose={() => setShowLoginForm(false)} />}
       <Corouselnew categoryData={categoryData} />
-      <Categorymain categoryData={categoryData} />  
-      
-      
-      
+      <Categorymain categoryData={categoryData} />   
     </div>
   );
 }
