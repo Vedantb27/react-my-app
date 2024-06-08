@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://mocki.io/v1/7a9e4b69-0069-4e9b-8bc6-37b20dbd0e88");
+        const response = await fetch("https://mocki.io/v1/6b39420c-1a0e-424a-9217-6a9eb32265aa");
         const data = await response.json();
         setCategoryData(data);
       } catch (error) {

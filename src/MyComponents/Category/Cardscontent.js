@@ -30,7 +30,7 @@ export const Cardscontent = () => {
               width="100%"
               height="100%"
               controls
-              url="https://www.youtube.com/watch?v=iWT0kl1k32M&ab_channel=JoshuaWeissman"
+              url={location.state.youtubeUrl}
             />
           </div>
           <div className="w-full md:w-3/4 mt-4 md:mt-0 border-2 rounded-2xl border-cyan-400 p-4 bg-white shadow-lg">

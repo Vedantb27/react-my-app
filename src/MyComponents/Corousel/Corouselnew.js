@@ -28,19 +28,8 @@ export const Corouselnew = ({ categoryData }) => {
             <p className='text-sm font-medium mt-2'>{categoryName}</p>
           </a>
         ))}
-        {Object.keys(categoryData).map((categoryName) => (
-          <a href={`#${categoryName}`} key={categoryName} className=' rounded-xl w-72 min-h-34  h-34 ml-16 flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-xl hover:' onClick={(e) => handleSmoothScroll(e, categoryName)}>
-            <img
-              src={categoryData[categoryName].imageId}
-              alt={categoryName}
-              className='rounded-xl min-w-20 min-h-20  w-20 h-20 object-cover mt-2 max-w-full'
-            />
-            <p className='text-sm font-medium mt-2'>{categoryName}</p>
-          </a>
-        ))}
+       
         
-        
-      
       </div>
     </div>
   );
