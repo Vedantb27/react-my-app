@@ -24,21 +24,41 @@ export const Admincardscontent = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://mocki.io/v1/6b39420c-1a0e-424a-9217-6a9eb32265aa"
+          "http://localhost:8000/menu"
         );
         const data = await response.json();
-        const transformedData = Object.keys(data).map((key) => ({
+        const filteredData = filterIdFromData(data);
+        const transformedData = Object.keys(filteredData).map((key) => ({
           name: key,
-          imageId: data[key].imageId,
-          items: data[key].items,
+          imageId: filteredData[key].imageId,
+          items: filteredData[key].items,
         }));
         setCards(transformedData);
+        console.log("Fetched and transformed data:", transformedData);
       } catch (error) {
         console.log("Error fetching the data", error);
       }
     };
     fetchData();
   }, [setCards]);
+
+
+  
+  const filterIdFromData = (data) => {
+    const filteredData = {};
+    Object.keys(data).forEach(key => {
+      if (key !== "_id" && key !== "__v") {
+        if (Array.isArray(data[key])) {
+          filteredData[key] = data[key].map(item => filterIdFromData(item));
+        } else if (typeof data[key] === "object") {
+          filteredData[key] = filterIdFromData(data[key]);
+        } else {
+          filteredData[key] = data[key];
+        }
+      }
+    });
+    return filteredData;
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,7 +85,7 @@ export const Admincardscontent = () => {
     originalMealDetail.current = _.cloneDeep(editableMealDetail);
     originalIngredients.current = _.cloneDeep(editableIngredients);
     originalYoutubeUrl.current = _.cloneDeep(editableYoutubeUrl);
-
+      console.log("This is an updated cards :",updatedCards)
     // Send updated cards to JSON Placeholder
     try {
       const response = await axios.post('https://jsonplaceholder.typicode.com/posts', updatedCards);

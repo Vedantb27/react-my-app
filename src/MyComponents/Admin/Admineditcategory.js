@@ -16,13 +16,14 @@ export const Admineditcategory = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://mocki.io/v1/6b39420c-1a0e-424a-9217-6a9eb32265aa"
+          "http://localhost:8000/menu"
         );
         const data = await response.json();
-        const transformedData = Object.keys(data).map((key) => ({
+        const filteredData = filterIdFromData(data);
+        const transformedData = Object.keys(filteredData).map((key) => ({
           name: key,
-          imageId: data[key].imageId,
-          items: data[key].items,
+          imageId: filteredData[key].imageId,
+          items: filteredData[key].items,
         }));
         setCards(transformedData);
         setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
@@ -33,6 +34,24 @@ export const Admineditcategory = () => {
     };
     fetchData();
   }, []);
+
+
+  const filterIdFromData = (data) => {
+    const filteredData = {};
+    Object.keys(data).forEach(key => {
+      if (key !== "_id" && key !== "__v") {
+        if (Array.isArray(data[key])) {
+          filteredData[key] = data[key].map(item => filterIdFromData(item));
+        } else if (typeof data[key] === "object") {
+          filteredData[key] = filterIdFromData(data[key]);
+        } else {
+          filteredData[key] = data[key];
+        }
+      }
+    });
+    return filteredData;
+  }
+
 
   const handleImageChange = (e, index) => {
     const file = e.target.files[0];
@@ -59,6 +78,7 @@ export const Admineditcategory = () => {
   };
 
   const handleSaveChange = () => {
+    console.log(cards);
     // Send the updated cards to the server
     axios
       .post("https://jsonplaceholder.typicode.com/posts", { cards })
