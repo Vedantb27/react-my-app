@@ -13,15 +13,35 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://mocki.io/v1/6b39420c-1a0e-424a-9217-6a9eb32265aa");
+        const response = await fetch("http://localhost:8000/menu");
         const data = await response.json();
-        setCategoryData(data);
+        // Filter out the ID from the response data
+        const filteredData = filterIdFromData(data);
+        console.log("The filtered data is :",filteredData)
+        setCategoryData(filteredData);
       } catch (error) {
         console.log("error fetching the data", error);
       } 
     }
     fetchData();
   }, []);
+
+  // Function to recursively filter out the _id field from nested objects
+  const filterIdFromData = (data) => {
+    const filteredData = {};
+    Object.keys(data).forEach(key => {
+      if (key !== "_id" && key !== "__v") {
+        if (Array.isArray(data[key])) {
+          filteredData[key] = data[key].map(item => filterIdFromData(item));
+        } else if (typeof data[key] === "object") {
+          filteredData[key] = filterIdFromData(data[key]);
+        } else {
+          filteredData[key] = data[key];
+        }
+      }
+    });
+    return filteredData;
+  }
 
   return (
     <div className="App">
