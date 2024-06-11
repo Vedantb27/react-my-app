@@ -76,14 +76,14 @@ export const Admineditcategory = () => {
       reader.readAsDataURL(file);
     }
   };
-
+console.log(cards);
   const handleSaveChange = () => {
-    console.log(cards);
+    
     // Send the updated cards to the server
     axios
-      .post("https://jsonplaceholder.typicode.com/posts", { cards })
+      .post("http://localhost:2580/addMenu",  cards )
       .then((response) => {
-        console.log("Response from JsonPlaceholder:", response.data);
+        console.log("http://localhost:2570/addMenu:", response.data);
 
         // Update the originalCards with a deep clone of the updated cards
         setOriginalCards(_.cloneDeep(cards));
