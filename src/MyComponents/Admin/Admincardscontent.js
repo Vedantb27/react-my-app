@@ -7,25 +7,33 @@ import Admincontext from "./Admincontext";
 
 export const Admincardscontent = () => {
   const location = useLocation();
-  const { youtubeUrl, mealDetail, ingredients, imageId, title, type, itemIndex, categoryIndex } = location.state;
-  const { cards, setCards } = useContext(Admincontext);
-  console.log("This is an itemIndex ", itemIndex ,"This is an categoryindex",categoryIndex);
-  // Create deep clone for original values using useRef
-  const originalMealDetail = useRef(_.cloneDeep(mealDetail));
-  const originalIngredients = useRef(_.cloneDeep(ingredients));
-  const originalYoutubeUrl = useRef(_.cloneDeep(youtubeUrl));
+  const { itemIndex, categoryIndex } = location.state;
 
-  const [editableMealDetail, setEditableMealDetail] = useState(mealDetail);
-  const [editableIngredients, setEditableIngredients] = useState(ingredients);
-  const [editableYoutubeUrl, setEditableYoutubeUrl] = useState(youtubeUrl);
+  // Define states
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [mealDetail, setMealDetail] = useState('');
+  const [ingredients, setIngredients] = useState('');
+  const [imageId, setImageId] = useState('');
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState('');
+
+  const { cards, setCards } = useContext(Admincontext);
+
+  // Create deep clone for original values using useRef
+  const originalMealDetail = useRef('');
+  const originalIngredients = useRef('');
+  const originalYoutubeUrl = useRef('');
+
+  // Editable states
+  const [editableMealDetail, setEditableMealDetail] = useState('');
+  const [editableIngredients, setEditableIngredients] = useState('');
+  const [editableYoutubeUrl, setEditableYoutubeUrl] = useState('');
   const [newYoutubeUrl, setNewYoutubeUrl] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/menu"
-        );
+        const response = await fetch("http://localhost:8000/menu");
         const data = await response.json();
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
@@ -34,16 +42,34 @@ export const Admincardscontent = () => {
           items: filteredData[key].items,
         }));
         setCards(transformedData);
+
+        const selectedItem = transformedData[categoryIndex].items[itemIndex];
+
+        setYoutubeUrl(selectedItem.youtubeUrl);
+        setMealDetail(selectedItem.mealDetail);
+        setIngredients(selectedItem.ingredients);
+        setImageId(selectedItem.imageId);
+        setTitle(selectedItem.title);
+        setType(selectedItem.type);
+
+        // Set initial editable states
+        setEditableYoutubeUrl(selectedItem.youtubeUrl);
+        setEditableMealDetail(selectedItem.mealDetail);
+        setEditableIngredients(selectedItem.ingredients);
+
+        // Set initial values for refs
+        originalMealDetail.current = selectedItem.mealDetail;
+        originalIngredients.current = selectedItem.ingredients;
+        originalYoutubeUrl.current = selectedItem.youtubeUrl;
+
         console.log("Fetched and transformed data:", transformedData);
       } catch (error) {
         console.log("Error fetching the data", error);
       }
     };
     fetchData();
-  }, [setCards]);
+  }, [categoryIndex, itemIndex, setCards]);
 
-
-  
   const filterIdFromData = (data) => {
     const filteredData = {};
     Object.keys(data).forEach(key => {
@@ -58,14 +84,13 @@ export const Admincardscontent = () => {
       }
     });
     return filteredData;
-  }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const handleSave = async () => {
-    // Update the specific item in the cards context
     const updatedCards = _.cloneDeep(cards);
     const category = updatedCards[categoryIndex];
     const updatedItems = [...category.items];
@@ -81,15 +106,14 @@ export const Admincardscontent = () => {
     };
     setCards(updatedCards);
 
-    // Update deep clone with new values
     originalMealDetail.current = _.cloneDeep(editableMealDetail);
     originalIngredients.current = _.cloneDeep(editableIngredients);
     originalYoutubeUrl.current = _.cloneDeep(editableYoutubeUrl);
-      console.log("This is an updated cards :",updatedCards)
-    // Send updated cards to JSON Placeholder
+    console.log("This is an updated cards :", updatedCards);
+
     try {
       const response = await axios.post('http://localhost:2580/addMenu', updatedCards);
-      console.log("Response data from http://localhost:2580/addMenu:", response.data); // Logging the response data
+      console.log("Response data from http://localhost:2580/addMenu:", response.data);
       console.log("Data sent successfully");
     } catch (error) {
       console.log("Error sending data", error);
@@ -129,11 +153,10 @@ export const Admincardscontent = () => {
               controls
               url={editableYoutubeUrl}
             />
-            
           </div>
           <div className="w-full md:w-3/4 mt-4 md:mt-0 border-2 rounded-2xl border-cyan-400 p-4 bg-white shadow-lg">
             <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-              <h2  className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-blue-500">
+              <h2 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-blue-500">
                 {title}
               </h2>
               <div className="flex flex-col mb-4">
