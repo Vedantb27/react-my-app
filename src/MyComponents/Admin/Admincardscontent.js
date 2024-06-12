@@ -9,7 +9,7 @@ export const Admincardscontent = () => {
   const location = useLocation();
   const { youtubeUrl, mealDetail, ingredients, imageId, title, type, itemIndex, categoryIndex } = location.state;
   const { cards, setCards } = useContext(Admincontext);
-
+  console.log("This is an itemIndex ", itemIndex ,"This is an categoryindex",categoryIndex);
   // Create deep clone for original values using useRef
   const originalMealDetail = useRef(_.cloneDeep(mealDetail));
   const originalIngredients = useRef(_.cloneDeep(ingredients));
@@ -88,8 +88,8 @@ export const Admincardscontent = () => {
       console.log("This is an updated cards :",updatedCards)
     // Send updated cards to JSON Placeholder
     try {
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', updatedCards);
-      console.log("Response data:", response.data); // Logging the response data
+      const response = await axios.post('http://localhost:2580/addMenu', updatedCards);
+      console.log("Response data from http://localhost:2580/addMenu:", response.data); // Logging the response data
       console.log("Data sent successfully");
     } catch (error) {
       console.log("Error sending data", error);
@@ -133,7 +133,7 @@ export const Admincardscontent = () => {
           </div>
           <div className="w-full md:w-3/4 mt-4 md:mt-0 border-2 rounded-2xl border-cyan-400 p-4 bg-white shadow-lg">
             <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-blue-500">
+              <h2  className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-blue-500">
                 {title}
               </h2>
               <div className="flex flex-col mb-4">

@@ -1,46 +1,48 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Admincontext from "./Admincontext";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
 
 export const Admincardsedit = () => {
   const location = useLocation();
-  const { items, index } = location.state || { items: [], index: null };
-  const [ItemCards, setItemCards] = useState(items);
+  const { index } = location.state || { index: null };
   const { cards, setCards } = useContext(Admincontext);
-  const [originalItems, setOriginalItems] = useState(_.cloneDeep(items));
+  const [ItemCards, setItemCards] = useState([]);
+  const [originalItems, setOriginalItems] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8000/menu"
-        );
-        const data = await response.json();
-        const filteredData = filterIdFromData(data);
-        const transformedData = Object.keys(filteredData).map((key) => ({
-          name: key,
-          imageId: filteredData[key].imageId,
-          items: filteredData[key].items,
-        }));
-        setCards(transformedData);
-        console.log("Fetched and transformed data:", transformedData);
-      } catch (error) {
-        console.log("Error fetching the data", error);
-      }
-    };
-    fetchData();
-  }, []);
+    if (index !== null) {
+      fetchData();
+    }
+  }, [index]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/menu");
+      const data = await response.json();
+      const filteredData = filterIdFromData(data);
+      const transformedData = Object.keys(filteredData).map((key) => ({
+        name: key,
+        imageId: filteredData[key].imageId,
+        items: filteredData[key].items,
+      }));
+      setCards(transformedData);
+      setOriginalItems(_.cloneDeep(transformedData[index].items));
+      setItemCards(transformedData[index].items);
+    } catch (error) {
+      console.log("Error fetching the data", error);
+    }
+  };
 
   const filterIdFromData = (data) => {
     const filteredData = {};
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       if (key !== "_id" && key !== "__v") {
         if (Array.isArray(data[key])) {
-          filteredData[key] = data[key].map(item => filterIdFromData(item));
+          filteredData[key] = data[key].map((item) => filterIdFromData(item));
         } else if (typeof data[key] === "object") {
           filteredData[key] = filterIdFromData(data[key]);
         } else {
@@ -49,50 +51,16 @@ export const Admincardsedit = () => {
       }
     });
     return filteredData;
-  }
-
-  useEffect(() => {
-    setItemCards(items);
-    setOriginalItems(_.cloneDeep(items));
-  }, [items]);
-
-  const handleDelete = (itemIndex) => {
-    const updatedItems = ItemCards.filter((_, i) => i !== itemIndex);
-    setItemCards(updatedItems);
-    updateCardsInContext(updatedItems);
-  };
-
-  const handleAddCard = () => {
-    const newCard = {
-      title: "",
-      imageId: "",
-      type: "",
-    };
-    setItemCards([...ItemCards, newCard]);
-  };
-
-  const handleUpdate = (updatedItems) => {
-    setItemCards(updatedItems);
-    updateCardsInContext(updatedItems);
-  };
-
-  const handleReset = () => {
-    setItemCards(_.cloneDeep(originalItems));
-    updateCardsInContext(_.cloneDeep(originalItems));
-  };
-
-  const updateCardsInContext = (updatedItems) => {
-    const updatedCards = cards.map((card, cardIndex) =>
-      cardIndex === index ? { ...card, items: updatedItems } : card
-    );
-    setCards(updatedCards);
   };
 
   const handleSaveChange = () => {
+    const updatedCards = [...cards];
+    updatedCards[index].items = ItemCards;
+    setCards(updatedCards);
     axios
-      .post("https://jsonplaceholder.typicode.com/posts", { cards })
+      .post("http://localhost:2580/addMenu", updatedCards)
       .then((response) => {
-        console.log("Response from JsonPlaceholder:", response.data);
+        console.log("Data saved successfully:", response.data);
         setOriginalItems(_.cloneDeep(ItemCards));
       })
       .catch((error) => {
@@ -109,7 +77,6 @@ export const Admincardsedit = () => {
         const updatedItems = [...ItemCards];
         updatedItems[itemIndex].imageId = imageUrl;
         setItemCards(updatedItems);
-        updateCardsInContext(updatedItems);
       };
       reader.readAsDataURL(file);
     }
@@ -123,6 +90,24 @@ export const Admincardsedit = () => {
         categoryIndex: index, // Pass the category index as well
       },
     });
+  };
+
+  const handleAddCard = () => {
+    const newCard = {
+      title: "",
+      imageId: "",
+      type: "",
+    };
+    setItemCards([...ItemCards, newCard]);
+  };
+
+  const handleReset = () => {
+    setItemCards(_.cloneDeep(originalItems));
+  };
+
+  const handleDelete = (itemIndex) => {
+    const updatedItems = ItemCards.filter((_, i) => i !== itemIndex);
+    setItemCards(updatedItems);
   };
 
   return (
@@ -209,7 +194,7 @@ export const Admincardsedit = () => {
                       onChange={(e) => {
                         const updatedCards = [...ItemCards];
                         updatedCards[index].title = e.target.value;
-                        handleUpdate(updatedCards);
+                        setItemCards(updatedCards);
                       }}
                     />
                   </div>
@@ -224,7 +209,7 @@ export const Admincardsedit = () => {
                       onChange={(e) => {
                         const updatedCards = [...ItemCards];
                         updatedCards[index].type = e.target.value;
-                        handleUpdate(updatedCards);
+                        setItemCards(updatedCards);
                       }}
                     />
                   </div>
