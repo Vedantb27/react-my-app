@@ -13,8 +13,9 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/menu");
+        const response = await fetch("http://localhost:3001/get-json");
         const data = await response.json();
+        console.log(data)
         // Filter out the ID from the response data
         const filteredData = filterIdFromData(data);
         console.log("The filtered data is :",filteredData)

@@ -21,7 +21,7 @@ export const Admincardsedit = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/menu");
+      const response = await fetch("http://localhost:3001/get-json");
       const data = await response.json();
       const filteredData = filterIdFromData(data);
       const transformedData = Object.keys(filteredData).map((key) => ({
@@ -55,18 +55,52 @@ export const Admincardsedit = () => {
 
   const handleSaveChange = () => {
     const updatedCards = [...cards];
-    updatedCards[index].items = ItemCards;
+    
+    console.log("this is updated cards:", updatedCards);
+    console.log("this is ItemCards", ItemCards);
+  
+    // Ensure items is initialized as an array if it is not already
+    if (!Array.isArray(updatedCards[index].items)) {
+      updatedCards[index].items = [];
+    }
+    
+    // Clear the existing items to replace with the updated ItemCards
+    updatedCards[index].items = [];
+  
+    ItemCards.forEach((itemobj, x) => {
+      const newItem = {
+        cardId: updatedCards[index].items.length + 1,
+        title: itemobj.title,
+        imageId: itemobj.imageId,
+        type: itemobj.type,
+        mealDetail: '',
+        ingredients: '',
+        youtubeUrl: ''
+      };
+  
+      updatedCards[index].items.push(newItem);
+    });
+  
     setCards(updatedCards);
+    debugger;
+    console.log(updatedCards);
+  
     axios
-      .post("http://localhost:2580/addMenu", updatedCards)
+      .post("http://localhost:3001/update-json", updatedCards) // Send updatedCards instead of cards
       .then((response) => {
-        console.log("Data saved successfully:", response.data);
+        console.log(
+          "Data saved successfully on http://localhost:3001/update-json:",
+          response.data
+        );
         setOriginalItems(_.cloneDeep(ItemCards));
       })
       .catch((error) => {
         console.log("Error sending data:", error);
       });
   };
+  
+  
+  
 
   const handleImageChange = (e, itemIndex) => {
     const file = e.target.files[0];
@@ -81,7 +115,7 @@ export const Admincardsedit = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  console.log(cards);
   const handleEditCardContent = (card, itemIndex) => {
     navigate("/Admincardscontent", {
       state: {
@@ -97,6 +131,9 @@ export const Admincardsedit = () => {
       title: "",
       imageId: "",
       type: "",
+      mealDetail: "",
+      ingredients: "",
+      youtubeUrl: "",
     };
     setItemCards([...ItemCards, newCard]);
   };

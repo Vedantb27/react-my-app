@@ -33,7 +33,7 @@ export const Admincardscontent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/menu");
+        const response = await fetch("http://localhost:3001/get-json");
         const data = await response.json();
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
@@ -112,8 +112,8 @@ export const Admincardscontent = () => {
     console.log("This is an updated cards :", updatedCards);
 
     try {
-      const response = await axios.post('http://localhost:2580/addMenu', updatedCards);
-      console.log("Response data from http://localhost:2580/addMenu:", response.data);
+      const response = await axios.post('http://localhost:3001/update-json', updatedCards);
+      console.log("Response data from http://localhost:3001/update-json:", response.data);
       console.log("Data sent successfully");
     } catch (error) {
       console.log("Error sending data", error);
