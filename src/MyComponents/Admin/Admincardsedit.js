@@ -102,20 +102,35 @@ export const Admincardsedit = () => {
   
   
 
-  const handleImageChange = (e, itemIndex) => {
+  const handleImageChange = async (e, itemIndex) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageUrl = reader.result;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "reactFoodApp");
+      formData.append("cloud_name", "dzged7hmp");
+  
+      try {
+        const response = await fetch("https://api.cloudinary.com/v1_1/dzged7hmp/image/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        const imageUrl = data.url;
+  
         const updatedItems = [...ItemCards];
         updatedItems[itemIndex].imageId = imageUrl;
         setItemCards(updatedItems);
-      };
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.log("Error uploading image:", error);
+      }
     }
   };
+  
+
   console.log(cards);
+
+
   const handleEditCardContent = (card, itemIndex) => {
     navigate("/Admincardscontent", {
       state: {

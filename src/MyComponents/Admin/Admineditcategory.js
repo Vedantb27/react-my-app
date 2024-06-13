@@ -82,7 +82,9 @@ export const Admineditcategory = () => {
       }
     }
   };
-  console.log("This are cards: ",cards)
+
+
+  
   const handleSaveChange = () => {
     // Send the updated cards to the server
     
