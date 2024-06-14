@@ -61,11 +61,11 @@ export const Cardscontent = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-green-500">
+                <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-green-500 overflow-x-auto	">
                   Ingredients
                 </h3>
-                <p className="text-gray-700">
-                  {location.state?.ingredients}
+                <p className="text-gray-700 w-full border-2 border-blue-400 rounded-2xl p-4">
+                {location.state?.ingredients}
                 </p>
               </div>
             </div>

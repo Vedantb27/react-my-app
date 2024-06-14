@@ -84,7 +84,7 @@ export const Admineditcategory = () => {
   };
 
 
-  
+
   const handleSaveChange = () => {
     // Send the updated cards to the server
     
@@ -118,7 +118,9 @@ export const Admineditcategory = () => {
   };
 
   const handleEditCard = (items, index) => {
+    
     navigate("/Admincardsedit", { state: { items, index } });
+    
   };
 
   return (
